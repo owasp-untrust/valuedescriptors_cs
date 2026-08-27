@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <PackageId>Owasp.Untrust.ValueDescriptors</PackageId>
+    <Description>Explicit origin and disclosure descriptors for .NET values.</Description>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../Owasp.Untrust.ValueDescriptors.Analyzers/Owasp.Untrust.ValueDescriptors.Analyzers.csproj"
+                      OutputItemType="Analyzer"
+                      ReferenceOutputAssembly="false" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="../Owasp.Untrust.ValueDescriptors.Analyzers/bin/$(Configuration)/net8.0/Owasp.Untrust.ValueDescriptors.Analyzers.dll"
+          Pack="true"
+          PackagePath="analyzers/dotnet/cs"
+          Visible="false" />
+  </ItemGroup>
+</Project>
