@@ -9,10 +9,10 @@ namespace Owasp.Untrust.ValueDescriptors.Analyzers;
 [DiagnosticAnalyzer(LanguageNames.CSharp)]
 public sealed class HardcodedArgumentAnalyzer : DiagnosticAnalyzer
 {
-    public const string NonConstantArgumentId = "VD1001";
+    internal const string NON_CONSTANT_ARGUMENT_ID = "VD1001";
 
     private static readonly DiagnosticDescriptor NonConstantArgument = new(
-        NonConstantArgumentId,
+        NON_CONSTANT_ARGUMENT_ID,
         "Hardcoded text must be a compile-time constant",
         "Argument to '{0}' must be a compile-time constant string",
         "Owasp.Untrust.ValueDescriptors.Security",

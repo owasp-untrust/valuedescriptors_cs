@@ -2,7 +2,7 @@
 
 Origin and disclosure descriptors for values that are not necessarily validated
 user input. The package owns the common public-rendering and disclosure-policy
-contracts used by `vv2_cs`.
+contracts used by `vv_cs`.
 
 ```csharp
 Hardcoded message = Hardcoded.From("username")

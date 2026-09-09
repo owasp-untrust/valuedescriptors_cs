@@ -2,6 +2,7 @@
   <PropertyGroup>
     <PackageId>Owasp.Untrust.ValueDescriptors</PackageId>
     <Description>Explicit origin and disclosure descriptors for .NET values.</Description>
+    <PackageTags>owasp;security;privacy;disclosure;redaction;pii</PackageTags>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="../Owasp.Untrust.ValueDescriptors.Analyzers/Owasp.Untrust.ValueDescriptors.Analyzers.csproj"
@@ -9,7 +10,8 @@
                       ReferenceOutputAssembly="false" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="../Owasp.Untrust.ValueDescriptors.Analyzers/bin/$(Configuration)/net8.0/Owasp.Untrust.ValueDescriptors.Analyzers.dll"
+    <None Include="../../README.md" Pack="true" PackagePath="\" />
+    <None Include="../Owasp.Untrust.ValueDescriptors.Analyzers/bin/$(Configuration)/netstandard2.0/Owasp.Untrust.ValueDescriptors.Analyzers.dll"
           Pack="true"
           PackagePath="analyzers/dotnet/cs"
           Visible="false" />

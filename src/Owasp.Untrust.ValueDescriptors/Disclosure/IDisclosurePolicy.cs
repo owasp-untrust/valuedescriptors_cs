@@ -4,8 +4,6 @@ namespace Owasp.Untrust.ValueDescriptors.Disclosure;
 public interface IDisclosurePolicy<TValue>
     where TValue : notnull
 {
-    static abstract DisclosureKind Kind { get; }
-
     static abstract object? ToPublicValue(TValue value);
 
     static abstract string ToPublicString(TValue value);
