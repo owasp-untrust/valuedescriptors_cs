@@ -16,8 +16,6 @@ public abstract class DescribedValue<TValue, TDisclosure> : IExposableValue<TVal
 
     public TValue ExposeUnchecked() => _value;
 
-    public object? ToPublicValue() => TDisclosure.ToPublicValue(_value);
-
     public string ToPublicString() => TDisclosure.ToPublicString(_value);
 
     public sealed override string ToString() => ToPublicString();
