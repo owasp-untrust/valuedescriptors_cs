@@ -27,7 +27,7 @@ public sealed class AnalyzerTests
 
         ImmutableArray<Diagnostic> diagnostics = await AnalyzeAsync(source);
 
-        Assert.Equal(2, diagnostics.Count(d => d.Id == HardcodedArgumentAnalyzer.NonConstantArgumentId));
+        Assert.Equal(2, diagnostics.Count(d => d.Id == HardcodedArgumentAnalyzer.NON_CONSTANT_ARGUMENT_ID));
     }
 
     [Fact]
@@ -50,7 +50,7 @@ public sealed class AnalyzerTests
 
         ImmutableArray<Diagnostic> diagnostics = await AnalyzeAsync(source);
 
-        Assert.DoesNotContain(diagnostics, d => d.Id == HardcodedArgumentAnalyzer.NonConstantArgumentId);
+        Assert.DoesNotContain(diagnostics, d => d.Id == HardcodedArgumentAnalyzer.NON_CONSTANT_ARGUMENT_ID);
     }
 
     private static async Task<ImmutableArray<Diagnostic>> AnalyzeAsync(string source)

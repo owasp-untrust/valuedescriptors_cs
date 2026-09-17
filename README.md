@@ -20,8 +20,15 @@ using static Owasp.Untrust.ValueDescriptors.Descriptors;
 Hardcoded message = hardcoded("username is required");
 ```
 
-`ToString()`, `ToPublicString()`, and `ToPublicValue()` use the selected public
+`ToString()` and `ToPublicString()` use the selected safe textual
 representation. Raw access is deliberately named `ExposeUnchecked()`.
+
+`IExposableValue<T>` also extends `IPubliclyRepresentable`, so every exposable
+value must define its safe textual representation. `Public<T>` additionally
+implements `IPublicDisclosurePolicy<T>` and supplies `PublicValue(T)`. Other
+disclosure policies intentionally do not choose a machine-serialized value:
+redaction, masking, tokenization, or the retained value may each be correct for
+different boundaries.
 
 - `Hardcoded` describes developer-controlled text and may concatenate only another
   `Hardcoded`. Analyzer error `VD1001` requires both `hardcoded(...)` and
@@ -39,3 +46,9 @@ the disclosure decision explicit at the call site.
 are extension points for application-specific descriptor families. They retain
 the value in private immutable base storage and seal `ToString()` to the selected
 disclosure policy.
+
+`LazyStringBuilder` composes `Hardcoded` and any `IExposableValue<string>` without
+depending on the validation library. `ToString()` keeps every component's safe
+representation; `ExposeUnchecked()` is the explicit boundary that produces the
+real composed string. Its `+` operators provide concise composition while still
+rejecting unclassified raw strings.

@@ -30,7 +30,7 @@ public sealed class DescriptorTests
         ViewableConfig<string> value = ViewableConfig.From("eu-west-1");
 
         Assert.Equal("eu-west-1", value.ToPublicString());
-        Assert.Equal("eu-west-1", value.ToPublicValue());
+        Assert.Equal("eu-west-1", value.ExposeUnchecked());
     }
 
     [Fact]
@@ -39,7 +39,21 @@ public sealed class DescriptorTests
         RedactedConfig<string> value = RedactedConfig.From("secret");
 
         Assert.Equal("[sensitive]", value.ToString());
-        Assert.Equal("[sensitive]", value.ToPublicValue());
+        Assert.Equal("[sensitive]", value.ToPublicString());
         Assert.Equal("secret", value.ExposeUnchecked());
+    }
+
+    [Fact]
+    public void LazyStringBuilder_OperatorsPreserveSafeAndExposedRepresentations()
+    {
+        Hardcoded prefix = hardcoded("region=");
+        ViewableConfig<string> region = ViewableConfig.From("eu-west-1");
+        RedactedConfig<string> secret = RedactedConfig.From("api-key");
+
+        LazyStringBuilder value = prefix + LazyStringBuilder.From(region) +
+            hardcoded(";key=") + secret;
+
+        Assert.Equal("region=eu-west-1;key=[sensitive]", value.ToString());
+        Assert.Equal("region=eu-west-1;key=api-key", value.ExposeUnchecked());
     }
 }
