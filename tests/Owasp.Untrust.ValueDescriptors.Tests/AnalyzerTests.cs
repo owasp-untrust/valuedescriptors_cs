@@ -14,13 +14,12 @@ public sealed class AnalyzerTests
     {
         const string source = """
             using Owasp.Untrust.ValueDescriptors;
-            using static Owasp.Untrust.ValueDescriptors.Descriptors;
+            using static Owasp.Untrust.ValueDescriptors.HardcodedFactory;
             public static class Example
             {
                 public static void Use(string runtime)
                 {
-                    _ = Hardcoded.From(runtime);
-                    _ = hardcoded(runtime);
+                    _ = Hardcoded(runtime);
                 }
             }
             """;
@@ -35,15 +34,14 @@ public sealed class AnalyzerTests
     {
         const string source = """
             using Owasp.Untrust.ValueDescriptors;
-            using static Owasp.Untrust.ValueDescriptors.Descriptors;
+            using static Owasp.Untrust.ValueDescriptors.HardcodedFactory;
             public static class Example
             {
                 private const string Prefix = "pre";
                 public static void Use()
                 {
-                    _ = Hardcoded.From("literal");
-                    _ = hardcoded(Prefix + "fix");
-                    _ = hardcoded(nameof(Example));
+                    _ = Hardcoded(Prefix + "fix");
+                    _ = Hardcoded(nameof(Example));
                 }
             }
             """;

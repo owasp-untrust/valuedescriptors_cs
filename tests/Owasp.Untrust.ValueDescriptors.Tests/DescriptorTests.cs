@@ -1,6 +1,6 @@
 using Owasp.Untrust.ValueDescriptors.Core;
 using Xunit;
-using static Owasp.Untrust.ValueDescriptors.Descriptors;
+using static Owasp.Untrust.ValueDescriptors.HardcodedFactory;
 
 namespace Owasp.Untrust.ValueDescriptors.Tests;
 
@@ -9,7 +9,7 @@ public sealed class DescriptorTests
     [Fact]
     public void Hardcoded_IsPublicAndConcatenatesOnlyWithHardcoded()
     {
-        Hardcoded result = Hardcoded.From("field").Concat(Hardcoded.From(" is required"));
+        Hardcoded result = Hardcoded("field").Concat(Hardcoded(" is required"));
 
         Assert.Equal("field is required", result.ToString());
         Assert.Equal("field is required", result.ExposeUnchecked());
@@ -19,7 +19,7 @@ public sealed class DescriptorTests
     [Fact]
     public void StaticImport_ProvidesLowercaseFactory()
     {
-        Hardcoded value = hardcoded("compile-time text");
+        Hardcoded value = Hardcoded("compile-time text");
 
         Assert.Equal("compile-time text", value.ExposeUnchecked());
     }
@@ -46,12 +46,12 @@ public sealed class DescriptorTests
     [Fact]
     public void LazyStringBuilder_OperatorsPreserveSafeAndExposedRepresentations()
     {
-        Hardcoded prefix = hardcoded("region=");
+        Hardcoded prefix = Hardcoded("region=");
         ViewableConfig<string> region = ViewableConfig.From("eu-west-1");
         RedactedConfig<string> secret = RedactedConfig.From("api-key");
 
         LazyStringBuilder value = prefix + LazyStringBuilder.From(region) +
-            hardcoded(";key=") + secret;
+            Hardcoded(";key=") + secret;
 
         Assert.Equal("region=eu-west-1;key=[sensitive]", value.ToString());
         Assert.Equal("region=eu-west-1;key=api-key", value.ExposeUnchecked());

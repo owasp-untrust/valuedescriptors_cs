@@ -66,6 +66,6 @@ public sealed class HardcodedArgumentAnalyzer : DiagnosticAnalyzer
 
         string containingType = method.ContainingType.ToDisplayString();
         return (method.Name == "From" && containingType == "Owasp.Untrust.ValueDescriptors.Hardcoded") ||
-               (method.Name == "hardcoded" && containingType == "Owasp.Untrust.ValueDescriptors.Descriptors");
+               (method.Name == "Hardcoded" && containingType == "Owasp.Untrust.ValueDescriptors.HardcodedFactory");
     }
 }

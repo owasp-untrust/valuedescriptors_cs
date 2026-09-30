@@ -9,7 +9,7 @@ public sealed class Hardcoded : DescribedValue<string, Public<string>>, IStringD
 {
     private Hardcoded(string value) : base(value) { }
 
-    public static Hardcoded From(string value) => new(value);
+    //public static Hardcoded From(string value) => new(value);
 
     internal static Hardcoded FromAnalyzedFactory(string value) => new(value);
 
@@ -21,8 +21,8 @@ public sealed class Hardcoded : DescribedValue<string, Public<string>>, IStringD
 }
 
 /// <summary>Factories intended for static import.</summary>
-public static class Descriptors
+public static class HardcodedFactory
 {
     /// <summary>Describes compile-time constant text as originating in code.</summary>
-    public static Hardcoded hardcoded(string value) => Hardcoded.FromAnalyzedFactory(value);
+    public static Hardcoded Hardcoded(string value) => global::Owasp.Untrust.ValueDescriptors.Hardcoded.FromAnalyzedFactory(value);
 }
