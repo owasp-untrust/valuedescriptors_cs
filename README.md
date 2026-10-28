@@ -5,20 +5,26 @@ user input. The package owns the common public-rendering and disclosure-policy
 contracts used by `vv_cs`.
 
 ```csharp
-Hardcoded message = Hardcoded.From("username")
-    .Concat(Hardcoded.From(" is required"));
+using static Owasp.Untrust.ValueDescriptors.HardcodedFactory;
+
+Hardcoded message = Hardcoded("username")
+    .Concat(Hardcoded(" is required"));
 
 ViewableConfig<string> region = ViewableConfig.From(configuration["Region"]!);
 RedactedConfig<string> apiKey = RedactedConfig.From(configuration["ApiKey"]!);
 ```
 
-For the most concise form, import the factory once (or make it a global using):
+`Hardcoded` is intentionally created only through the static-import factory:
 
 ```csharp
-using static Owasp.Untrust.ValueDescriptors.Descriptors;
+using static Owasp.Untrust.ValueDescriptors.HardcodedFactory;
 
-Hardcoded message = hardcoded("username is required");
+Hardcoded message = Hardcoded("username is required");
 ```
+
+`Hardcoded.From(...)` is not public, and there is no `Descriptors.hardcoded(...)`
+factory. The `Hardcoded(...)` factory is analyzer-protected: its argument must be
+a compile-time constant string.
 
 `ToString()` and `ToPublicString()` use the selected safe textual
 representation. Raw access is deliberately named `ExposeUnchecked()`.
@@ -31,8 +37,8 @@ redaction, masking, tokenization, or the retained value may each be correct for
 different boundaries.
 
 - `Hardcoded` describes developer-controlled text and may concatenate only another
-  `Hardcoded`. Analyzer error `VD1001` requires both `hardcoded(...)` and
-  `Hardcoded.From(...)` to receive a compile-time constant string.
+  `Hardcoded`. Analyzer error `VD1001` requires `Hardcoded(...)` to receive a
+  compile-time constant string.
 - `ViewableConfig<T>` describes configuration approved for public display.
 - `RedactedConfig<T>` describes secret configuration and renders `[sensitive]`.
 - `Public<T>`, `RedactedPii<T>`, `MaskedPii<T,TMasker>`, and
