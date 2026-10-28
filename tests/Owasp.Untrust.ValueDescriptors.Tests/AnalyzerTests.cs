@@ -10,7 +10,7 @@ namespace Owasp.Untrust.ValueDescriptors.Tests;
 public sealed class AnalyzerTests
 {
     [Fact]
-    public async Task Reports_RuntimeArgument_ForBothFactories()
+    public async Task Reports_RuntimeArgument_ForHardcodedFactory()
     {
         const string source = """
             using Owasp.Untrust.ValueDescriptors;
@@ -26,7 +26,7 @@ public sealed class AnalyzerTests
 
         ImmutableArray<Diagnostic> diagnostics = await AnalyzeAsync(source);
 
-        Assert.Equal(2, diagnostics.Count(d => d.Id == HardcodedArgumentAnalyzer.NON_CONSTANT_ARGUMENT_ID));
+        Assert.Single(diagnostics.Where(d => d.Id == HardcodedArgumentAnalyzer.NON_CONSTANT_ARGUMENT_ID));
     }
 
     [Fact]
